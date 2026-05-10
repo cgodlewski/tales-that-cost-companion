@@ -12,5 +12,4 @@ The site is a guided reading aid for the open-access article. It summarizes the 
 - `IRFA-2026_Godlewski&Weill.pdf`: open-access article PDF.
 - `folklore_title.png`: title image used in the website.
 - `folklore_figures/`: figures required by the website.
-- `slides/Tales_that_Cost_Presentation.html`: current offline Reveal.js slide deck.
 
