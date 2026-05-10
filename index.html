@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tales that Cost - Research Companion</title>
+  <style>
+    :root {
+      --ink: #1f2430;
+      --muted: #65707b;
+      --line: #d8d0c2;
+      --soft: #f7f4ed;
+      --paper: #ffffff;
+      --blue: #173f63;
+      --blue-2: #2e638f;
+      --red: #8f3540;
+      --green: #476c3a;
+      --gold: #b27622;
+      --warm: #fbf8f1;
+      --shadow: 0 16px 38px rgba(31, 36, 48, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      color: var(--ink);
+      background: var(--warm);
+      line-height: 1.55;
+    }
+
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(251,248,241,0.94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+
+    .nav {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 12px 22px;
+    }
+
+    .brand {
+      font-weight: 700;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+
+    .navlinks {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 14px;
+      font-size: 14px;
+    }
+
+    .hero {
+      min-height: 86vh;
+      display: grid;
+      align-items: end;
+      position: relative;
+      background:
+        linear-gradient(180deg, rgba(251,248,241,0.12), rgba(251,248,241,0.96) 78%),
+        url("folklore_title.png") center 28% / cover no-repeat;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-inner {
+      max-width: 1180px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 120px 22px 42px 22px;
+    }
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 9px;
+      background: rgba(255,255,255,0.82);
+      border: 1px solid var(--line);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--blue);
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      max-width: 920px;
+      font-size: clamp(44px, 7vw, 88px);
+      line-height: 0.98;
+      letter-spacing: 0;
+      margin: 0 0 16px 0;
+    }
+
+    .subtitle {
+      max-width: 760px;
+      margin: 0 0 28px 0;
+      font-size: clamp(18px, 2.3vw, 25px);
+      color: #28364b;
+      font-weight: 500;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 40px;
+      padding: 9px 13px;
+      border: 1px solid var(--blue);
+      background: var(--blue);
+      color: white;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .button.secondary {
+      background: rgba(255,255,255,0.9);
+      color: var(--blue);
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(130px, 1fr));
+      gap: 10px;
+      max-width: 980px;
+    }
+
+    .meta {
+      background: rgba(255,255,255,0.9);
+      border: 1px solid var(--line);
+      padding: 12px;
+    }
+
+    .meta strong {
+      display: block;
+      font-size: 20px;
+      color: var(--blue);
+      line-height: 1.1;
+    }
+
+    .meta span {
+      display: block;
+      margin-top: 4px;
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    main section {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 66px 22px;
+      border-bottom: 1px solid var(--line);
+      background: var(--warm);
+    }
+
+    .section-label {
+      color: var(--blue);
+      font-weight: 700;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: clamp(30px, 4vw, 48px);
+      line-height: 1.08;
+      letter-spacing: 0;
+      margin: 0 0 18px 0;
+      max-width: 860px;
+    }
+
+    .lead {
+      font-size: 20px;
+      color: #26354a;
+      max-width: 900px;
+      margin: 0 0 28px 0;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .panel, .figure-panel, .finding, .tile {
+      border: 1px solid var(--line);
+      background: var(--paper);
+    }
+
+    .panel { padding: 22px; }
+
+    .callout {
+      border-left: 4px solid var(--blue);
+      background: var(--soft);
+      padding: 16px 18px;
+      margin-top: 20px;
+      color: #25364b;
+    }
+
+    .pipeline {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+      margin-top: 28px;
+    }
+
+    .step {
+      border: 1px solid var(--line);
+      background: var(--soft);
+      padding: 14px;
+      min-height: 132px;
+      position: relative;
+    }
+
+    .step b {
+      display: block;
+      color: var(--blue);
+      font-size: 13px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .step p {
+      margin: 0;
+      color: #2a384d;
+      font-size: 14px;
+    }
+
+    .figure-panel {
+      padding: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .figure-panel img {
+      display: block;
+      width: 100%;
+      max-height: 560px;
+      object-fit: contain;
+      background: white;
+    }
+
+    .article-reader {
+      border: 1px solid var(--line);
+      background: var(--paper);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      margin-top: 22px;
+    }
+
+    .article-reader iframe {
+      display: block;
+      width: 100%;
+      height: min(78vh, 820px);
+      border: 0;
+      background: var(--soft);
+    }
+
+    .article-note {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      background: var(--soft);
+      color: #314154;
+      font-size: 14px;
+    }
+
+    .caption {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 10px 4px 0 4px;
+    }
+
+    .findings-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .finding {
+      padding: 18px;
+      border-top: 4px solid var(--blue);
+      min-height: 180px;
+    }
+
+    .finding:nth-child(2) { border-top-color: var(--red); }
+    .finding:nth-child(3) { border-top-color: var(--green); }
+    .finding:nth-child(4) { border-top-color: var(--gold); }
+
+    .finding strong {
+      display: block;
+      font-size: 28px;
+      color: var(--blue);
+      margin-bottom: 10px;
+      line-height: 1;
+    }
+
+    .finding h3 {
+      margin: 0 0 9px 0;
+      font-size: 18px;
+    }
+
+    .finding p { margin: 0; color: #344257; font-size: 14px; }
+
+    .robust-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    details.tile {
+      padding: 16px;
+      background: var(--soft);
+    }
+
+    details summary {
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--blue);
+    }
+
+    details p {
+      margin: 12px 0 0 0;
+      font-size: 14px;
+      color: #344257;
+    }
+
+    .citation-box {
+      background: #111827;
+      color: white;
+      padding: 22px;
+      margin-top: 18px;
+      overflow-x: auto;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 13px;
+      white-space: pre-wrap;
+    }
+
+    .footer {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 28px 22px 52px 22px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 920px) {
+      .nav { align-items: flex-start; flex-direction: column; }
+      .navlinks { justify-content: flex-start; }
+      .meta-grid, .findings-grid, .robust-grid { grid-template-columns: repeat(2, 1fr); }
+      .two-col { grid-template-columns: 1fr; }
+      .pipeline { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 560px) {
+      .hero { min-height: 92vh; background-position: center top; }
+      .hero-inner { padding-top: 96px; }
+      .meta-grid, .findings-grid, .robust-grid, .pipeline { grid-template-columns: 1fr; }
+      main section { padding: 48px 18px; }
+      .nav { padding: 10px 18px; }
+      .navlinks { gap: 10px; font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav" aria-label="Page navigation">
+      <a class="brand" href="#top">Tales that Cost</a>
+      <div class="navlinks">
+        <a href="#question">Question</a>
+        <a href="#measurement">Measurement</a>
+        <a href="#groups">Groups</a>
+        <a href="#evidence">Evidence</a>
+        <a href="#robustness">Robustness</a>
+        <a href="#article">Article</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="hero" id="top">
+    <div class="hero-inner">
+      <div class="kicker">Research companion · International Review of Financial Analysis</div>
+      <h1>Tales that Cost</h1>
+      <p class="subtitle">How ancestral folklore about risk and failure helps explain the pricing of modern syndicated loans.</p>
+      <div class="hero-actions">
+        <a class="button" href="https://doi.org/10.1016/j.irfa.2026.105100">Open article</a>
+      </div>
+      <div class="meta-grid" aria-label="Paper metadata">
+        <div class="meta"><strong>1,671</strong><span>syndicated loans</span></div>
+        <div class="meta"><strong>316</strong><span>lead banks</span></div>
+        <div class="meta"><strong>1,192</strong><span>borrower firms</span></div>
+        <div class="meta"><strong>33</strong><span>folklore groups</span></div>
+        <div class="meta"><strong>1999-2017</strong><span>European sample</span></div>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section id="question">
+      <div class="section-label">01 · Core Question</div>
+      <h2>Can inherited stories about risk shape the price of credit?</h2>
+      <p class="lead">The paper links European syndicated loan contracts to measures of risk-related folklore in the cultural background of lead lenders. The central hypothesis is that cultural narratives may enter credit pricing as soft information, especially when stories emphasize failure after challenge or competition.</p>
+      <div class="two-col">
+        <div class="panel">
+          <h3>What is being explained?</h3>
+          <p>Loan spreads over floating-rate benchmarks, measured at the loan level and modeled with detailed loan, borrower, lender, regional, country, industry, and year controls.</p>
+        </div>
+        <div class="figure-panel">
+          <img src="folklore_figures/loans_firmsbyyear.png" alt="Number of loans and firms by year">
+          <p class="caption">Sample timing. Source: authors' descriptive figure from the project files.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="measurement">
+      <div class="section-label">02 · From Tale To Variable</div>
+      <h2>Folklore is converted into measurable cultural exposure.</h2>
+      <p class="lead">The empirical design uses the cross-cultural folklore measures of Michalopoulos and Xue (2021), based on Berezkin's catalogue of oral traditions. A motif is a recurrent narrative element: a plot, character, symbolic image, or episode shared across traditions.</p>
+      <div class="pipeline" aria-label="Measurement pipeline">
+        <div class="step"><b>Traditional stories</b><p>Oral traditions collected across cultural societies.</p></div>
+        <div class="step"><b>Motifs</b><p>Recurring narrative elements become the unit of analysis.</p></div>
+        <div class="step"><b>Challenge</b><p>Motifs related to challenge, competition, or risky action are identified.</p></div>
+        <div class="step"><b>Outcome</b><p>Challenge motifs are classified as successful, unsuccessful, unclear, or not applicable.</p></div>
+        <div class="step"><b>Berezkin group</b><p>Motif shares are aggregated at the folklore group level.</p></div>
+        <div class="step"><b>Lead lender</b><p>The lead bank's headquarters location is linked to the nearest folklore group.</p></div>
+      </div>
+    </section>
+
+    <section id="groups">
+      <div class="section-label">03 · Folklore Groups</div>
+      <h2>Challenge stories vary substantially across cultural groups.</h2>
+      <p class="lead">The key explanatory variables are not country dummies in disguise. They vary at the folklore-group level, often below the country level, and distinguish the prevalence and outcome of challenge-related motifs.</p>
+      <div class="two-col">
+        <div class="figure-panel">
+          <img src="folklore_figures/map of folklore groups in Europe.png" alt="Map of folklore groups in Europe">
+          <p class="caption">Berezkin folklore groups represented in the European lending sample.</p>
+        </div>
+        <div class="figure-panel">
+          <img src="folklore_figures/challengecompLbygroupL.png" alt="Challenge motif components by folklore group">
+          <p class="caption">Challenge motifs decomposed by outcome type: successful, unsuccessful, unclear, and N/A. This is the paper's main visual bridge between folklore measurement and the empirical variables.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="evidence">
+      <div class="section-label">04 · Main Evidence</div>
+      <h2>The pricing result is driven by cautionary challenge stories.</h2>
+      <div class="findings-grid">
+        <div class="finding">
+          <strong>+</strong>
+          <h3>Challenge motifs</h3>
+          <p>Lead-lender folklore with more challenge-related motifs is associated with higher loan spreads in richer specifications.</p>
+        </div>
+        <div class="finding">
+          <strong>+</strong>
+          <h3>Unsuccessful outcomes</h3>
+          <p>Failure in challenge narratives carries the pricing effect more clearly than the overall challenge measure.</p>
+        </div>
+        <div class="finding">
+          <strong>0</strong>
+          <h3>Successful outcomes</h3>
+          <p>Stories where risk-taking succeeds do not show the same spread-increasing effect.</p>
+        </div>
+        <div class="finding">
+          <strong>+22.86 bps</strong>
+          <h3>Economic magnitude</h3>
+          <p>One standard-deviation increase in relatively unsuccessful motifs corresponds to about 10.5% of the mean spread.</p>
+        </div>
+      </div>
+      <div class="two-col">
+        <div class="figure-panel">
+          <img src="folklore_figures/binscatterlogspreadvschallengeL.png" alt="Binned relationship between loan spread and challenge-related folklore">
+          <p class="caption">Binned relationship between loan spread and challenge-related folklore. Kept because it is directly aligned with the final paper's spread outcome.</p>
+        </div>
+        <div class="figure-panel">
+          <img src="folklore_figures/spreadbygroupL.png" alt="Loan spread by folklore group">
+          <p class="caption">Descriptive spread levels by lead-lender folklore group. This is supplementary context, not a substitute for the regression evidence.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="robustness">
+      <div class="section-label">05 · Robustness</div>
+      <h2>The result is checked against alternative explanations.</h2>
+      <p class="lead">The paper tests whether the folklore result survives richer cultural, geographic, and econometric controls. The aim is to separate the folklore channel from broader country culture and regional development differences.</p>
+      <div class="robust-grid">
+        <details class="tile" open>
+          <summary>Alternative culture</summary>
+          <p>Controls include Hofstede dimensions, religion, trust, and corruption measures. The main folklore variables remain economically meaningful.</p>
+        </details>
+        <details class="tile">
+          <summary>Instrumental variables</summary>
+          <p>The IV strategy uses neighboring folklore within a 225 km radius to capture cultural diffusion while limiting direct current-credit channels.</p>
+        </details>
+        <details class="tile">
+          <summary>Fixed effects</summary>
+          <p>Additional fixed effects absorb time, industry, borrower-country, and lender-country variation across specifications.</p>
+        </details>
+        <details class="tile">
+          <summary>Heterogeneity</summary>
+          <p>Effects are stronger among stronger banks and stronger firms, consistent with folklore complementing, not replacing, hard information.</p>
+        </details>
+      </div>
+    </section>
+
+    <section id="article">
+      <div class="section-label">06 · Open Access Article</div>
+      <h2>Read the paper from the companion page.</h2>
+      <p class="lead">The article remains anchored by the journal DOI, while the embedded PDF gives visitors a low-friction way to inspect the argument, tables, and figures without leaving the companion site.</p>
+
+      <div class="article-reader">
+        <div class="article-note">
+          <span>Embedded local PDF reader. Browser support can vary, so the DOI link remains the canonical access point.</span>
+          <a class="button secondary" href="https://doi.org/10.1016/j.irfa.2026.105100">Open DOI</a>
+        </div>
+        <iframe title="Tales that Cost article PDF" src="IRFA-2026_Godlewski&amp;Weill.pdf#toolbar=1&amp;navpanes=0"></iframe>
+      </div>
+    </section>
+
+    <section id="citation">
+      <div class="section-label">07 · Reference And Access</div>
+      <h2>Paper, citation, and reuse note.</h2>
+      <p class="lead">This page is a companion to the published article. Numerical claims are drawn from the paper and project figures; readers should cite the article for formal methods and results.</p>
+      <p><strong>Article:</strong> Godlewski, C. and Weill, L. (2026). Tales that cost: Folklore and bank loan spreads. <em>International Review of Financial Analysis</em>, 111, 105100.</p>
+      <p><strong>DOI:</strong> <a href="https://doi.org/10.1016/j.irfa.2026.105100">10.1016/j.irfa.2026.105100</a></p>
+      <div class="citation-box">@article{GodlewskiWeill2026TalesThatCost,
+  title   = {Tales that cost: Folklore and bank loan spreads},
+  author  = {Godlewski, Christophe and Weill, Laurent},
+  journal = {International Review of Financial Analysis},
+  volume  = {111},
+  pages   = {105100},
+  year    = {2026},
+  doi     = {10.1016/j.irfa.2026.105100}
+}</div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    Research companion site for Godlewski and Weill (2026). This page is intended as a guided reading aid and visual supplement, not a substitute for the published article. The article DOI remains the canonical access point; host only article files and figures that the open-access license permits you to redistribute.
+  </footer>
+
+  <script>
+    document.documentElement.classList.add("js-ready");
+  </script>
+</body>
+</html>
