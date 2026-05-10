@@ -8,13 +8,9 @@ The site is a guided reading aid for the open-access article. It summarizes the 
 
 ## Contents
 
-- `index.html`: static companion website, ready for GitHub Pages.
-- `IRFA-2026_Godlewski&Weill.pdf`: open-access article PDF used by the embedded reader.
-- `folklore_title.png`: title image used in the website hero.
+- `index.html`: static companion website.
+- `IRFA-2026_Godlewski&Weill.pdf`: open-access article PDF.
+- `folklore_title.png`: title image used in the website.
 - `folklore_figures/`: figures required by the website.
-- `slides/Tales_that_Cost_Presentation.html`: current offline Reveal.js slide deck, included as repository material but not linked from the public site.
-
-## GitHub Pages
-
-The site can be served from the repository root with GitHub Pages. In the repository settings, set Pages to deploy from the `main` branch and the root folder.
+- `slides/Tales_that_Cost_Presentation.html`: current offline Reveal.js slide deck.
 
